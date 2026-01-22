@@ -1,0 +1,49 @@
+<ion-col class="ion-margin-bottom full-width-col" fullscreen>
+  <ion-card color="light" class="full-width-card">
+    <ion-card-header
+      class="ion-padding-horizontal ion-padding-vertical ion-align-items-center ion-justify-content-between">
+      <ion-card-title style="color: #3171e0; font-weight: 600;">Información del beneficiario</ion-card-title>
+      <ng-container *ngIf="hasChanges">
+        <ion-button size="small" color="primary" fill="solid" (click)="saveChanges()">Guardar Cambios</ion-button>
+      </ng-container>
+    </ion-card-header>
+    <ion-card-content>
+      <ng-container *ngFor="let field of ['nombre', 'email', 'direccion', 'telefono', 'ciudad']">
+        <ion-item lines="none" class="ion-align-items-center ion-margin-vertical">
+          <ion-label class="ion-text-wrap" position="fixed" style="width: 30%; font-weight: 600; color: #555;">
+            {{ field | titlecase }}:
+          </ion-label>
+          <div class="content-wrapper">
+            <ng-container *ngIf="!editing[field]">
+              <ion-note>
+                {{ banco[field] }}
+              </ion-note>
+              <ion-button fill="clear" size="small" color="primary" (click)="startEditing(field)">
+                <ion-icon name="pencil-outline"></ion-icon>
+              </ion-button>
+            </ng-container>
+
+            <ng-container *ngIf="editing[field]">
+              <ng-container *ngIf="field === 'ciudad'; else otherInput">
+                <ion-select [(ngModel)]="banco['ciudad']" interface="action-sheet" placeholder="Seleccione una ciudad">
+                  <ion-select-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</ion-select-option>
+                </ion-select>
+              </ng-container>
+              <ng-template #otherInput>
+                <ion-input [(ngModel)]="banco[field]" [placeholder]="'Ingrese ' + field"></ion-input>
+              </ng-template>
+              <ion-button fill="outline" size="small" color="medium" (click)="cancelEdit(field)">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ng-container>
+          </div>
+
+        </ion-item>
+
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+</ion-col>
+<ion-footer>
+  <app-navbar></app-navbar>
+</ion-footer>

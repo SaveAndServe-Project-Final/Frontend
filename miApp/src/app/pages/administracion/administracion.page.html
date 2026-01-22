@@ -1,0 +1,37 @@
+<div class=" custom-admin-theme">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title class="ion-text-center">Zona Administrador</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row class="ion-margin-top" justify-content-center>
+      <ion-col size="12" size-md="6">
+        <ion-button expand="block" class="admin-button yellow-button" [routerLink]="'/gestion-articulos'">
+          Gestión Artículos
+        </ion-button>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-button expand="block" class="admin-button yellow-button" [routerLink]="'/gestion-beneficiarios'">
+          Gestión Beneficiarios
+        </ion-button>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-button expand="block" class="admin-button yellow-button" [routerLink]="'/gestion-donantes'">
+          Gestión Donantes
+        </ion-button>
+      </ion-col>
+      <!-- 
+      <ion-col size="12" size-md="6">
+        <ion-button expand="block" class="admin-button yellow-button" [routerLink]="'/gestion-transportes'">
+          Gestión Transportes
+        </ion-button>
+      </ion-col>
+      -->
+    </ion-row>
+  </ion-grid>
+</div>
+<ion-footer>
+  <app-navbar></app-navbar>
+</ion-footer>

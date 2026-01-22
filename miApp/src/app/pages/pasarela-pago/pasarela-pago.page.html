@@ -1,0 +1,127 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pagar Suscripción</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+
+      <!-- Columna: Métodos de Pago -->
+      <ion-col size-md="7" size-sm="12">
+        <ion-card class="payment-card">
+          <ion-card-header>
+            <ion-card-title>Método de pago</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-accordion-group #accordion>
+
+              <!-- Paypal -->
+              <ion-accordion value="paypal">
+                <ion-item slot="header" class="accordion-header">
+                  <ion-label>Paypal</ion-label>
+                  <ion-icon name="logo-paypal" slot="start"></ion-icon>
+                </ion-item>
+                <div slot="content" class="ion-padding">
+                  <ion-item>
+                    <ion-label position="stacked">Correo de Paypal</ion-label>
+                    <ion-input type="email" [(ngModel)]="paypalEmail"></ion-input>
+                  </ion-item>
+                  <ion-text color="danger" *ngIf="showPaypalError">
+                    <small>Correo inválido o vacío</small>
+                  </ion-text>
+                </div>
+              </ion-accordion>
+
+              <!-- Tarjeta de Crédito -->
+              <ion-accordion value="card" expanded="true">
+                <ion-item slot="header" class="accordion-header">
+                  <ion-label>Tarjeta de crédito</ion-label>
+                  <ion-icon name="card-outline" slot="start"></ion-icon>
+                </ion-item>
+                <div slot="content" class="ion-padding">
+                  <ion-item>
+                    <ion-label position="stacked">Número de tarjeta</ion-label>
+                    <ion-input type="text" maxlength="16" name="cardNumber" [(ngModel)]="cardNumber"
+                      (ionInput)="onNumericInput('cardNumber')">
+                    </ion-input>
+                  </ion-item>
+                  <ion-text color="danger" *ngIf="showCardNumberError">
+                    <small>Número inválido o vacío</small>
+                  </ion-text>
+
+                  <ion-row>
+                    <ion-col size="6">
+                      <ion-item>
+                        <ion-label position="stacked">Expiración (MM/AA)</ion-label>
+                        <ion-input type="text" maxlength="5" name="expiryDate" [(ngModel)]="expiryDate"
+                          (ionInput)="formatExpiry($event)">
+                        </ion-input>
+                      </ion-item>
+                      <ion-text color="danger" *ngIf="showExpiryError">
+                        <small>Formato MM/AA</small>
+                      </ion-text>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-item>
+                        <ion-label position="stacked">CVC/CVV</ion-label>
+                        <ion-input type="text" maxlength="4" name="cvv" [(ngModel)]="cvv"
+                          (ionInput)="onNumericInput('cvv')">
+                        </ion-input>
+                      </ion-item>
+                      <ion-text color="danger" *ngIf="showCvvError">
+                        <small>3-4 dígitos</small>
+                      </ion-text>
+                    </ion-col>
+                  </ion-row>
+
+                  <p class="secure-note">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    Transacción segura (SSL)
+                  </p>
+                </div>
+              </ion-accordion>
+
+            </ion-accordion-group>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size-md="5" size-sm="12">
+        <ion-card class="summary-card">
+          <ion-card-header>
+            <ion-card-title>Resumen de compra</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="summary-details">
+              <div class="detail-row">
+                <span class="label">Plan seleccionado</span>
+                <span class="value">{{ plan }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="label">Precio mensual</span>
+                <span class="value">{{ price.toFixed(2) }}€</span>
+              </div>
+            </div>
+
+            <div class="total-container">
+              <span>Total a pagar</span>
+              <ion-badge class="total-badge">{{ price.toFixed(2) }}€</ion-badge>
+            </div>
+
+            <ion-button expand="block" color="primary" (click)="onPay()">
+              Pagar Ahora
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+      <app-navbar></app-navbar> 
+  </ion-footer>

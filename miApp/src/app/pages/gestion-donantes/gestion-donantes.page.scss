@@ -1,0 +1,35 @@
+ion-card {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  }
+
+  ion-label,
+  ion-input,
+  ion-textarea {
+    color: #000000 !important;
+  }
+
+  ion-item {
+    --border-color: #000000;
+    --border-style: solid;
+    --border-width: 1.8px;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 12px;
+  }
+
+  ion-input,
+  ion-textarea {
+    background-color: transparent !important;
+  }
+  ion-title {
+  color: white;
+}
+.lista-scroll {
+  max-height: 300px; 
+  overflow-y: auto;
+}
+
+ion-toolbar[color="dark"] {
+  --background: #000;
+  --color: #fff;
+}

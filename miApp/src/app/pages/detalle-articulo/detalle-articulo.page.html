@@ -1,0 +1,36 @@
+<div class="page-container">
+  <ng-container *ngIf="articulo; else loading">
+    <ion-content [fullscreen]="true" class="ion-padding">
+      <ion-card>
+        <ion-img [src]="getImagenUrl(articulo.imagen)" [alt]="articulo.titulo"></ion-img>
+        <ion-card-header>
+          <ion-card-title>{{ articulo.titulo }}</ion-card-title>
+          <ion-card-subtitle>{{ articulo.subtitulo }}</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content class="article-content">
+          <p *ngFor="let paragraph of getFormattedContent()">
+            {{ paragraph }}
+          </p>
+        </ion-card-content>
+      </ion-card>
+      
+      <ion-button expand="block" routerLink="/articulos">
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+        Volver a la lista
+      </ion-button>
+    </ion-content>
+  </ng-container>
+
+  <ng-template #loading>
+    <ion-content [fullscreen]="true" class="ion-padding">
+      <div class="loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p class="ion-text-center">Cargando artículo...</p>
+      </div>
+    </ion-content>
+  </ng-template>
+</div>
+<ion-footer>
+  <app-navbar></app-navbar>
+</ion-footer>

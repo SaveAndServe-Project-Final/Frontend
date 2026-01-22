@@ -1,0 +1,90 @@
+<!-- gestion-articulos.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Gestión de Artículos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+  <ion-text color="medium" class="ion-text-center">
+    <p>{{ modoEdicion ? 'Edita el artículo seleccionado' : 'Agrega un nuevo artículo' }}</p>
+  </ion-text>
+
+  <!-- Formulario -->
+  <form [formGroup]="articuloForm" (ngSubmit)="guardarArticulo()">
+
+    <ion-item lines="full" [class.ion-invalid]="articuloForm.get('titulo')?.invalid && articuloForm.get('titulo')?.touched">
+      <ion-label position="floating">Título del Artículo</ion-label>
+      <ion-input type="text" formControlName="titulo"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="articuloForm.get('titulo')?.invalid && articuloForm.get('titulo')?.touched" class="ion-padding-start">
+      El título es obligatorio y debe tener entre 5 y 100 caracteres.
+    </ion-text>
+
+    <ion-item lines="full" [class.ion-invalid]="articuloForm.get('subtitulo')?.invalid && articuloForm.get('subtitulo')?.touched">
+      <ion-label position="floating">Subtítulo</ion-label>
+      <ion-input type="text" formControlName="subtitulo"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="articuloForm.get('subtitulo')?.invalid && articuloForm.get('subtitulo')?.touched" class="ion-padding-start">
+      El subtítulo es obligatorio y debe tener entre 4 y 100 caracteres.
+    </ion-text>
+
+    <ion-item lines="full" [class.ion-invalid]="articuloForm.get('contenido')?.invalid && articuloForm.get('contenido')?.touched">
+      <ion-label position="floating">Texto del Artículo</ion-label>
+      <ion-textarea rows="5" formControlName="contenido"></ion-textarea>
+    </ion-item>
+    <ion-text color="danger" *ngIf="articuloForm.get('contenido')?.invalid && articuloForm.get('contenido')?.touched" class="ion-padding-start">
+      El texto es obligatorio y debe tener al menos 20 caracteres.
+    </ion-text>
+
+    <ion-item lines="full" [class.ion-invalid]="articuloForm.get('imagen')?.invalid && articuloForm.get('imagen')?.touched">
+      <ion-label>Imagen</ion-label>
+      <input type="file" accept="image/*" (change)="onImagenSeleccionada($event)" />
+    </ion-item>
+    <ion-text color="danger" *ngIf="articuloForm.get('imagen')?.invalid && articuloForm.get('imagen')?.touched" class="ion-padding-start">
+      Por favor, selecciona una imagen válida.
+    </ion-text>
+
+    <ion-grid>
+      <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-col size="auto">
+          <ion-button type="submit" [disabled]="articuloForm.invalid || (!imagenSeleccionada && !modoEdicion)">
+            {{ modoEdicion ? 'Actualizar Artículo' : 'Guardar Artículo' }}
+          </ion-button>
+        </ion-col>
+        <ion-col size="auto" *ngIf="modoEdicion">
+          <ion-button color="medium" (click)="resetForm()">
+            Cancelar Edición
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <!-- Listado de Artículos -->
+  <ion-list *ngIf="articulos.length > 0" class="ion-margin-top">
+    <ion-list-header>
+      <ion-label class="ion-text-center">Listado de Artículos</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let articulo of articulos">
+      <ion-thumbnail slot="start">
+        <img [src]="getImagenUrl(articulo.imagen)" alt="Imagen del artículo" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ articulo.titulo }}</h2>
+        <h3>{{ articulo.subtitulo }}</h3>
+      </ion-label>
+      <ion-button fill="clear" color="primary" slot="end" (click)="editarArticulo(articulo)">
+        Editar
+      </ion-button>
+      <ion-button fill="clear" color="danger" slot="end" (click)="eliminarArticulo(articulo.idArticulo!)">
+        Eliminar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="articulos.length === 0" color="medium" class="ion-text-center ion-margin-top">
+    No hay artículos disponibles.
+  </ion-text>
+

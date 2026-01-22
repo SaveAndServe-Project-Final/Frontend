@@ -1,0 +1,102 @@
+:host {
+  --ion-background-color: #000;
+  --ion-text-color: #fff;
+}
+
+ion-content {
+  --background: #212529;
+  color: #fff;
+  padding: 16px;
+}
+
+ion-header,
+ion-toolbar {
+  --background: #212529;
+  --color: #ffc107;
+  border-bottom: 1px solid #444;
+}
+
+ion-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+ion-icon {
+  color: #ffc107;
+}
+
+ion-label,
+p {
+  color: #ccc;
+}
+
+ion-item {
+  --background: #212529;
+  --border-color: #555;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+ion-input {
+  --background: #f4faf9;
+  --color: #000000;
+  border: 1px solid #555;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+
+
+ion-button {
+  --border-radius: 4px;
+  margin-top: 16px;
+}
+
+ion-button[color="warning"] {
+  --background: #ffc107;
+  --color: #212529;
+}
+
+ion-button.fill-clear,
+ion-button.clear-button {
+  --color: #fff;
+  text-decoration: underline;
+}
+
+ion-toast {
+  --background: #222;
+  --color: #ffc107;
+}
+
+.back-link span {
+  color: #ffc107 !important;
+}
+
+.plan-container {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  justify-content: center;
+}
+
+.plan-box {
+  flex: 1 1 30%;
+  max-width: 120px;
+  padding: 12px 0;
+  background: transparent;
+  border: 2px solid #ffc107;
+  border-radius: 6px;
+  color: #ffc107;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.plan-box.plan-active {
+  background: #ffc107;
+  color: #212529;
+}

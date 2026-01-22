@@ -1,0 +1,20 @@
+.custom-admin-theme {
+  --background: #ffffff;
+  --ion-background-color: #121212;
+  color: #000000;
+}
+
+.admin-button {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1.2rem;
+  border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.yellow-button {
+  --background: #ffcc00;
+  --background-hover: #e6b800;
+  --background-activated: #d9ad00;
+  --color: #000000;
+}

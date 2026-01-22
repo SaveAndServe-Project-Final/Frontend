@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>
+      <ion-icon name="person-circle" slot="start"></ion-icon>
+      Iniciar sesión
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding" fullscreen>
+  <div class="ion-text-center mb-4">
+    <div class="ion-margin-bottom">
+      <ion-icon name="person" style="font-size: 2rem; color: var(--ion-color-primary);"></ion-icon>
+    </div>
+    <p style="color: var(--ion-color-medium);">
+      Inicia sesión para acceder a tu cuenta.
+    </p>
+  </div>
+
+  <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
+    <ion-item>
+      <ion-label position="stacked">
+        <ion-icon name="mail" slot="start"></ion-icon>
+        Dirección Email
+      </ion-label>
+      <ion-input type="email"
+                 placeholder="name@example.com"
+                 [(ngModel)]="loginData.email"
+                 name="email"
+                 required>
+      </ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="loginForm.submitted && !loginData.email">
+      <p class="ion-padding-start">Por favor, introduce una dirección de email válida.</p>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="stacked">
+        <ion-icon name="lock-closed" slot="start"></ion-icon>
+        Contraseña
+      </ion-label>
+      <ion-input type="password"
+                 placeholder="Password"
+                 [(ngModel)]="loginData.password"
+                 name="password"
+                 required>
+      </ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="loginForm.submitted && !loginData.password">
+      <p class="ion-padding-start">Por favor, ingresa tu contraseña.</p>
+    </ion-text>
+
+    <ion-button expand="block" type="submit" color="primary" class="ion-margin-top">
+      <ion-icon name="log-in" slot="start"></ion-icon>
+      Iniciar Sesión
+    </ion-button>
+  </form>
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-button fill="clear" (click)="presentForgotPasswordModal()">Olvidaste tu contraseña?</ion-button>
+    <p>¿No tienes cuenta?</p>
+    <ion-button fill="clear" (click)="presentRegisterOptions()">Regístrate</ion-button>
+  </div>
+</ion-content>

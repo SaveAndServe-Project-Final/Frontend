@@ -1,0 +1,27 @@
+<ion-toolbar color="dark">
+  <ion-tabs>
+    <ion-tab-bar slot="bottom" class="tab-bar-custom">
+      <ion-tab-button tab="home" routerLink="/home" routerLinkActive="tab-selected" 
+      routerDirection="root"
+        (click)="index()">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button (click)="articulos()" tab="blog"  routerLinkActive="tab-selected">
+        <ion-icon name="newspaper"></ion-icon>
+        <ion-label>Articulos</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button (click)="presentInvolucrarseActionSheet()">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Involúcrate</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button (click)="presentUserMenu()">
+        <ion-icon name="person-circle"></ion-icon>
+        <ion-label>Cuenta</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-toolbar>

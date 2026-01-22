@@ -1,0 +1,6 @@
+ion-col[size-md="4"] {
+  @media (min-width: 992px) {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}

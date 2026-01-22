@@ -1,0 +1,220 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+// Estilos generales para cards
+ion-card {
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  &.donacion-card {
+    background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+    border-left: 4px solid #3171e0;
+  }
+}
+
+// Estilos para el formulario
+ion-datetime {
+  width: 100%;
+  max-width: 100%;
+  --min-width: 100%;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+ion-card-header {
+  ion-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  ion-button {
+    --padding-start: 6px;
+    --padding-end: 6px;
+    font-size: 0.8rem;
+  }
+}
+
+ion-item {
+  --inner-padding-end: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --min-height: 48px;
+  --background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 8px;
+
+  ion-label {
+    font-size: 0.9rem;
+    color: #444444;
+  }
+
+  ion-input,
+  ion-select {
+    font-size: 0.9rem;
+  }
+}
+
+ion-button {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+// Layout responsivo
+ion-col {
+  padding: 0 8px;
+}
+
+ion-list {
+  margin: 0;
+  background: transparent;
+}
+
+// Estilos para action sheet personalizado
+.custom-action-sheet .action-sheet-group button {
+  color: #000000;
+  font-weight: 600;
+}
+
+// Colores del tema
+ion-card {
+  background-color: #f9faff;
+}
+
+ion-label {
+  color: #444444;
+}
+
+// Modal personalizado
+ion-modal {
+  --width: 100%;
+  --height: auto;
+  --border-radius: 16px;
+}
+
+// Estados de loading y error
+.loading-state,
+.error-state {
+  padding: 2rem;
+  text-align: center;
+}
+
+.error-state {
+  color: var(--ion-color-danger);
+}
+
+// Badge para estados
+ion-badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+// Estilos específicos para móvil
+@media screen and (max-width: 768px) {
+  ion-card-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  ion-card-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  ion-button {
+    align-self: flex-end;
+  }
+
+  ion-item ion-label[position="fixed"] {
+    width: 40% !important;
+    font-size: 0.85rem;
+  }
+
+  ion-col {
+    padding: 0 4px;
+  }
+
+  // Ajustes para el modal en móvil
+  ion-modal {
+    --width: 95%;
+    --max-width: 500px;
+  }
+}
+
+// Footer fijo
+ion-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+// Ajustar padding del contenido para el footer fijo
+ion-content {
+  --padding-bottom: 60px; // Ajusta según la altura de tu navbar
+}
+
+// Animaciones suaves
+ion-card,
+ion-button {
+  transition: all 0.3s ease;
+}
+
+ion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+// Estilos para elementos vacíos
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  
+  ion-icon {
+    font-size: 4rem;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    color: var(--ion-color-medium);
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: var(--ion-color-medium-shade);
+    font-size: 0.9rem;
+  }
+}
+
+// Mejoras para la accesibilidad
+ion-button:focus,
+ion-item:focus {
+  outline: 2px solid var(--ion-color-primary);
+  outline-offset: 2px;
+}
+
+// Estilos para el detalle de donación
+.detalle-donacion {
+  .info-section {
+    margin-bottom: 1.5rem;
+    
+    h3 {
+      color: var(--ion-color-primary);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+  }
+  
+  .producto-item {
+    padding: 1rem;
+    border-left: 3px solid var(--ion-color-secondary);
+    margin-bottom: 0.5rem;
+    background: rgba(var(--ion-color-secondary-rgb), 0.05);
+    border-radius: 0 8px 8px 0;
+  }
+}

@@ -1,0 +1,38 @@
+
+.justified-text {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  
+  ion-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+    ion-card-content {
+      flex-grow: 1;
+    }
+  }
+  
+  ion-card-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  
+  ion-item-divider {
+    min-height: 1px;
+    background: var(--ion-color-dark);
+    margin: 16px 0;
+  }
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 24px;
+    }
+  }

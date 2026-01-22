@@ -1,0 +1,146 @@
+:host {
+  --ion-color-medium: #6c757d;
+}
+
+ion-content {
+  --background: #ffffff;
+}
+
+#price-section {
+  padding: 20px 0;
+
+  .title-container {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  h3.fw-bold {
+    font-weight: 700;
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .text-muted {
+    color: var(--ion-color-medium);
+    margin: 0;
+    font-size: 16px;
+  }
+
+  ion-grid {
+    --ion-grid-padding: 15px;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  ion-row.ion-padding-top {
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .plan-col {
+    margin-bottom: 20px;
+  }
+
+  .pricing-card {
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    
+    &.basic, &.standard {
+      background: rgba(32, 33, 36, 0.1);
+    }
+    
+    &.premium {
+      background: #070707;
+      color: white;
+      
+      .feature-item {
+        border-bottom-color: rgba(255, 255, 255, 0.2);
+        
+        ion-icon {
+          color: white;
+        }
+      }
+    }
+    
+    .card-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .plan-title {
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 15px;
+      margin-bottom: 1rem;
+    }
+    
+    .price {
+      font-size: 50px;
+      margin-bottom: 1.5rem;
+      line-height: 1;
+    }
+    
+    .feature-item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 0.75rem 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: left;
+      
+      ion-icon {
+        font-size: 20px;
+        margin-right: 20px;
+        min-width: 20px;
+        flex-shrink: 0;
+        color: #000;
+      }
+      
+      span {
+        flex: 1;
+      }
+    }
+    
+    .subscribe-btn {
+      margin-top: 1.5rem;
+      --background: var(--ion-color-medium);
+      --background-hover: #5a6268;
+      text-transform: none;
+      font-size: 14px;
+      height: 42px;
+    }
+  }
+}
+
+/* Correcciones específicas para Android */
+.md {
+  #price-section {
+    .pricing-card {
+      box-shadow: none;
+      
+      .card-content {
+        padding: 24px 16px;
+      }
+      
+      .price {
+        font-size: 46px;
+      }
+      
+      .feature-item {
+        padding: 12px 0;
+        
+        ion-icon {
+          font-size: 22px;
+        }
+      }
+    }
+    
+    .subscribe-btn {
+      --padding-top: 0;
+      --padding-bottom: 0;
+      margin-top: 24px;
+    }
+  }
+}

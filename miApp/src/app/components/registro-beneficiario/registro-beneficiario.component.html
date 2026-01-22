@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>
+      <ion-icon name="person-circle" slot="start"></ion-icon>
+      Registrarse
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeRegisterModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="beneficiarioForm" (ngSubmit)="registro()">
+
+    <ion-item>
+      <ion-label position="stacked">Nombre Beneficiario</ion-label>
+      <ion-input type="text" formControlName="nombre" placeholder="Introduce el nombre de tu empresa"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="beneficiarioForm.get('nombre')?.touched && beneficiarioForm.get('nombre')?.invalid"
+      color="danger">
+      <div *ngIf="beneficiarioForm.get('nombre')?.errors?.['required']">El nombre es requerido</div>
+      <div *ngIf="beneficiarioForm.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres
+      </div>
+    </ion-note>
+
+
+
+
+    <ion-item>
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input type="tel" formControlName="telefono" placeholder="Introduce el número de teléfono"></ion-input>
+    </ion-item>
+    <ion-note slot="error"
+      *ngIf="beneficiarioForm.get('telefono')?.touched && beneficiarioForm.get('telefono')?.invalid" color="danger">
+      <div *ngIf="beneficiarioForm.get('telefono')?.errors?.['required']">El teléfono es requerido</div>
+      <div *ngIf="beneficiarioForm.get('telefono')?.errors?.['pattern']">El teléfono debe tener 9 dígitos</div>
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" formControlName="email" placeholder="name@example.com"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="beneficiarioForm.get('email')?.touched && beneficiarioForm.get('email')?.invalid"
+      color="danger">
+      <div *ngIf="beneficiarioForm.get('email')?.errors?.['required']">El email es requerido</div>
+      <div *ngIf="beneficiarioForm.get('email')?.errors?.['email']">Introduce un email válido</div>
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Dirección</ion-label>
+      <ion-input type="text" formControlName="direccion" placeholder="Dirección empresa"></ion-input>
+    </ion-item>
+    <ion-note slot="error"
+      *ngIf="beneficiarioForm.get('direccion')?.touched && beneficiarioForm.get('direccion')?.invalid" color="danger">
+      La dirección es requerida
+    </ion-note>
+
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-label position="stacked">Ciudad</ion-label>
+      <ion-select formControlName="ciudad" interface="action-sheet" placeholder="Selecciona ciudad">
+        <ion-select-option *ngFor="let ciudad of ciudades" [value]="ciudad">
+          {{ ciudad }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-note slot="error" *ngIf="beneficiarioForm.get('ciudad')?.touched && beneficiarioForm.get('ciudad')?.invalid"
+      color="danger">
+      Debes seleccionar una ciudad
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Contraseña</ion-label>
+      <ion-input type="password" formControlName="contrasenia" placeholder="Introduce tu contraseña"></ion-input>
+    </ion-item>
+    <ion-note slot="error"
+      *ngIf="beneficiarioForm.get('contrasenia')?.touched && beneficiarioForm.get('contrasenia')?.invalid"
+      color="danger">
+      <div *ngIf="beneficiarioForm.get('contrasenia')?.errors?.['required']">La contraseña es requerida</div>
+      <div *ngIf="beneficiarioForm.get('contrasenia')?.errors?.['minlength']">Debe tener al menos 6 caracteres</div>
+    </ion-note>
+
+    <ion-item lines="none">
+      <ion-checkbox slot="start" formControlName="terms"></ion-checkbox>
+      <ion-label>
+        Yo acepto los <a href="#" (click)="openTerms($event)">términos y condiciones</a>
+      </ion-label>
+    </ion-item>
+    <ion-note slot="error" *ngIf="beneficiarioForm.get('terms')?.touched && beneficiarioForm.get('terms')?.invalid"
+      color="danger">
+      Debes aceptar los términos y condiciones
+    </ion-note>
+
+
+    <ion-button type="submit" expand="full" color="warning" [disabled]="beneficiarioForm.invalid">
+      Registrarse
+    </ion-button>
+
+    <ion-button fill="clear" class="back-link" (click)="backToLogin()">
+      <ion-icon slot="start" name="arrow-back-outline" style="color: aliceblue;"></ion-icon>
+      <span style="color: aliceblue;">Volver al inicio de sesión</span>
+    </ion-button>
+  </form>
+</ion-content>

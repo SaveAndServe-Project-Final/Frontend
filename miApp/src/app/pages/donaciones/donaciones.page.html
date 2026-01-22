@@ -1,0 +1,154 @@
+<ion-content >
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-padding-vertical">
+
+
+      <!-- Formulario de Donación -->
+      <ion-col size-md="8" class="ion-margin-bottom">
+        <ion-card color="light" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <ion-card-header>
+            <ion-card-title style="color: #3171e0; font-weight: 600;">Nueva Donación</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <form [formGroup]="donacionForm" (ngSubmit)="onSubmit()" class="ion-padding">
+
+              <!-- Empresa (Solo lectura) -->
+              <ion-item class="ion-margin-bottom">
+                <ion-label position="floating">Empresa</ion-label>
+                <ion-input [value]="empresa?.nombre + ' - ' + empresa?.ciudad" readonly></ion-input>
+              </ion-item>
+
+              <!-- Banco de Alimentos -->
+              <ion-item *ngIf="loadingBancos" lines="none" class="ion-margin-bottom">
+                <ion-spinner slot="start"></ion-spinner>
+                <ion-label>Cargando bancos...</ion-label>
+              </ion-item>
+              <ion-item *ngIf="errorBancos" color="danger" lines="none" class="ion-margin-bottom">
+                <ion-label>{{errorBancos}}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="!loadingBancos && !errorBancos" class="ion-margin-bottom">
+                <ion-label>Banco de Alimentos</ion-label>
+                <ion-select formControlName="bancoDeAlimentosId" placeholder="Seleccione un banco"
+                  interface="action-sheet" interfaceOptions="{cssClass: 'custom-action-sheet'}">
+                  <ion-select-option *ngFor="let banco of bancos" [value]="banco.id">
+                    {{ banco.nombre }} - {{ banco.ciudad }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <!-- Transporte -->
+              <ion-item *ngIf="loadingTransportes" lines="none" class="ion-margin-bottom">
+                <ion-spinner slot="start"></ion-spinner>
+                <ion-label>Cargando transportes...</ion-label>
+              </ion-item>
+              <ion-item *ngIf="errorTransportes" color="danger" lines="none" class="ion-margin-bottom">
+                <ion-label>{{errorTransportes}}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="!loadingTransportes && !errorTransportes" class="ion-margin-bottom">
+                <ion-label>Transporte</ion-label>
+                <ion-select formControlName="transporteId" interface="action-sheet"
+                  placeholder="Seleccione un transporte" interfaceOptions="{cssClass: 'custom-action-sheet'}">
+                  <ion-select-option *ngFor="let transporte of getTransportesCompatibles()" [value]="transporte.id">
+                    {{ transporte.nombreTransporte }} ({{ transporte.tipoTransporte.join(', ') }})
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-text color="danger"
+                *ngIf="getTiposTransporteNecesarios().size > 0 && getTransportesCompatibles().length === 0"
+                class="ion-padding-start ion-margin-bottom">
+                No hay transportes disponibles para los tipos de productos seleccionados
+              </ion-text>
+
+              <!-- Fecha de Entrega -->
+              <ion-item class="ion-margin-bottom">
+                <ion-label position="stacked" style="font-weight: 600;">Fecha de Entrega</ion-label>
+                <ion-input type="date" formControlName="fechaEntrega" style="padding-left: 12px;"></ion-input>
+              </ion-item>
+
+              <!-- Líneas de Producto -->
+              <ion-list>
+                <ng-container formArrayName="lineasProducto">
+                  <ion-card *ngFor="let linea of lineasProducto.controls; let i = index" [formGroupName]="i"
+                    class="ion-margin-bottom" style="border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <ion-card-content>
+                      <div formGroupName="producto">
+                        <ion-item class="ion-margin-bottom">
+                          <ion-label position="floating">Nombre</ion-label>
+                          <ion-input formControlName="nombre" placeholder="Nombre del producto"></ion-input>
+                        </ion-item>
+
+                        <ion-item class="ion-margin-bottom">
+                          <ion-label position="floating">Precio</ion-label>
+                          <ion-input type="number" formControlName="precio" placeholder="Precio"></ion-input>
+                        </ion-item>
+
+                        <ion-item class="ion-margin-bottom">
+                          <ion-label>Tipo Producto</ion-label>
+                          <ion-select formControlName="tipoProducto" placeholder="Tipo" interface="action-sheet">
+                            <ion-select-option value="SECO">Seco</ion-select-option>
+                            <ion-select-option value="REFRIGERADO">Refrigerado</ion-select-option>
+                            <ion-select-option value="CONGELADO">Congelado</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                      </div>
+
+                      <ion-item class="ion-margin-bottom">
+                        <ion-label position="floating">Cantidad</ion-label>
+                        <ion-input type="number" formControlName="cantidad" placeholder="Cantidad"></ion-input>
+                      </ion-item>
+
+                      <ion-item class="ion-margin-bottom">
+                        <ion-label position="floating">Subtotal</ion-label>
+                        <ion-input formControlName="subtotal" placeholder="Subtotal" readonly></ion-input>
+                      </ion-item>
+
+                      <ion-button color="danger" size="small" expand="block" (click)="removeLineaProducto(i)"
+                        class="ion-margin-top">
+                        Eliminar Producto
+                      </ion-button>
+
+                      <!-- Alérgenos -->
+                      <ion-item lines="none" class="ion-margin-top">
+                        <ion-label style="font-weight: 600;">Alérgenos:</ion-label>
+                      </ion-item>
+                      <ion-item *ngIf="loadingAlergenos" lines="none">
+                        <ion-spinner slot="start"></ion-spinner>
+                        <ion-label>Cargando alérgenos...</ion-label>
+                      </ion-item>
+                      <ion-list *ngIf="!loadingAlergenos">
+                        <ion-item *ngFor="let alergeno of alergenos; let j = index">
+                          <ion-checkbox slot="start" [formControl]="alergeno"></ion-checkbox>
+                          <ion-label>{{ alergeno.nombre }}</ion-label>
+                        </ion-item>
+                      </ion-list>
+                    </ion-card-content>
+                  </ion-card>
+                </ng-container>
+              </ion-list>
+
+              <ion-button expand="block" color="medium" class="ion-margin-top" (click)="addLineaProducto()">Agregar
+                Producto</ion-button>
+
+              <!-- Total -->
+              <ion-item lines="none" class="ion-justify-content-end ion-margin-top">
+                <ion-label class="ion-text-right" style="font-weight: 700; font-size: 1.3em;">
+                  Total: {{ totalDonacion | number: '1.2-2' }} €
+                </ion-label>
+              </ion-item>
+
+              <ion-button expand="block" type="submit" [disabled]="donacionForm.invalid" color="primary"
+                class="ion-margin-top">
+                Crear Donación
+              </ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <app-tabla-donaciones></app-tabla-donaciones>
+  <ion-footer>
+  <app-navbar></app-navbar>
+</ion-footer>
+</ion-content>

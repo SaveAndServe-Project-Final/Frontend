@@ -1,0 +1,105 @@
+<section id="price-section">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="7" class="ion-text-center">
+        <div class="title-container">
+          <h3 class="fw-bold">TARIFAS</h3>
+        </div>
+        <p class="text-muted">
+          Ofrecemos tarifas flexibles según el volumen de recolección y la frecuencia del servicio. Nuestro
+          objetivo es garantizar una solución accesible para todos nuestros socios comprometidos con la
+          sostenibilidad.
+        </p>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row class="ion-padding-top">
+      <!-- Plan Básico -->
+      <ion-col size="12" size-lg="4" class="plan-col">
+        <div class="pricing-card basic">
+          <div class="card-content">
+            <h5 class="plan-title">Plan Básico</h5>
+            <p class="price">50€</p>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Hasta 2 recoleciones por semana</span>
+            </div>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Reporte mensual básico del impacto social</span>
+            </div>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Ideal para restaurantes y negocios locales.</span>
+            </div>
+            
+            <ion-button expand="block" class="subscribe-btn" (click)="openRegister()">
+              Suscribirse
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+
+      <!-- Plan Premium -->
+      <ion-col size="12" size-lg="4" class="plan-col">
+        <div class="pricing-card premium">
+          <div class="card-content">
+            <h5 class="plan-title">PLAN PREMIUM</h5>
+            <p class="price">500€</p>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Recolecciones ilimitadas.</span>
+            </div>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Reportes del estado a través de la web.</span>
+            </div>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Asesoría personalizada para reducir desperdicios alimentarios</span>
+            </div>
+            
+            <ion-button expand="block" class="subscribe-btn" (click)="openRegister()">
+              Suscribirse
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+
+      <!-- Plan Estandar -->
+      <ion-col size="12" size-lg="4" class="plan-col">
+        <div class="pricing-card standard">
+          <div class="card-content">
+            <h5 class="plan-title">PLAN ESTANDAR</h5>
+            <p class="price">250€</p>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Hasta 5 recolecciones por semana.</span>
+            </div>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Reporte detallado mensual y anuales.</span>
+            </div>
+            
+            <div class="feature-item">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Certificación de Responsabilidad Social.</span>
+            </div>
+            
+            <ion-button expand="block" class="subscribe-btn" (click)="openRegister()">
+              Suscribirse
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</section>

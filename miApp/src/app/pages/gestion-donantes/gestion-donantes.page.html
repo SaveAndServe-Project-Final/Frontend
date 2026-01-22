@@ -1,0 +1,165 @@
+<ion-header translucent>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-capitalize">Gestión de Donantes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" class="ion-padding">
+  <form [formGroup]="empresaForm" (ngSubmit)="agregarEmpresa()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="nombre"></ion-input>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('nombre')?.errors?.['required'] && empresaForm.get('nombre')?.touched">
+            El nombre es obligatorio.
+          </ion-text>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('nombre')?.errors?.['minlength'] && empresaForm.get('nombre')?.touched">
+            Debe tener al menos 3 caracteres.
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label position="floating">Teléfono</ion-label>
+            <ion-input formControlName="telefono" type="tel"></ion-input>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('telefono')?.errors?.['required'] && empresaForm.get('telefono')?.touched">
+            El teléfono es obligatorio.
+          </ion-text>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('telefono')?.errors?.['pattern'] && empresaForm.get('telefono')?.touched">
+            Formato incorrecto (Ej: 600123456).
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('email')?.errors?.['required'] && empresaForm.get('email')?.touched">
+            El email es obligatorio.
+          </ion-text>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('email')?.errors?.['email'] && empresaForm.get('email')?.touched">
+            Formato de email inválido.
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label position="floating">CIF</ion-label>
+            <ion-input formControlName="cif"></ion-input>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('cif')?.errors?.['required'] && empresaForm.get('cif')?.touched">
+            El CIF es obligatorio.
+          </ion-text>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('cif')?.errors?.['pattern'] && empresaForm.get('cif')?.touched">
+            CIF inválido (Ej: B12345678).
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label position="floating">Dirección</ion-label>
+            <ion-input formControlName="direccion"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label>Ciudad</ion-label>
+            <ion-select formControlName="ciudad" placeholder="Selecciona una ciudad" interface="action-sheet">
+              <ion-select-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('ciudad')?.errors?.['required'] && empresaForm.get('ciudad')?.touched">
+            Debe seleccionar una ciudad.
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label>Tipo de Empresa</ion-label>
+            <ion-select formControlName="tipo" placeholder="Selecciona un tipo" interface="action-sheet">
+              <ion-select-option *ngFor="let tipo of tiposDeEmpresa" [value]="tipo">{{ tipo }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('tipo')?.errors?.['required'] && empresaForm.get('tipo')?.touched">
+            Debe seleccionar un tipo de empresa.
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="contrasenia"></ion-input>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('contrasenia')?.errors?.['required'] && empresaForm.get('contrasenia')?.touched">
+            La contraseña es obligatoria.
+          </ion-text>
+          <ion-text color="danger"
+            *ngIf="empresaForm.get('contrasenia')?.errors?.['minlength'] && empresaForm.get('contrasenia')?.touched">
+            Debe tener al menos 6 caracteres.
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12" class="ion-margin-top ion-text-center">
+          <ion-button expand="block" type="submit" [disabled]="empresaForm.invalid">
+            {{ modoEdicion ? 'Editar Empresa' : 'Agregar Empresa' }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <ion-text color="success" *ngIf="mensaje" class="ion-padding">
+    {{ mensaje }}
+  </ion-text>
+
+  <ion-card-header>
+    <ion-card-title>Lista de Donantes</ion-card-title>
+  </ion-card-header>
+  <ion-list>
+    <ion-item *ngFor="let empresa of empresas">
+      <ion-label>
+        <h2>{{ empresa.nombre }}</h2>
+        <p>{{ empresa.telefono }}</p>
+        <p>{{ empresa.direccion }}</p>
+        <p>{{ empresa.email }}</p>
+        <ion-badge [color]="esValidada(empresa) ? 'success' : 'danger'">
+          {{ esValidada(empresa) ? 'Validado' : 'No validado' }}
+        </ion-badge>
+      </ion-label>
+
+      <ion-buttons slot="end">
+        <ion-button size="small" fill="clear" [color]="esValidada(empresa) ? 'danger' : 'success'"
+          (click)="toggleValidacion(empresa)">
+          <ion-icon [name]="esValidada(empresa) ? 'close-circle' : 'checkmark-circle'"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" size="small" color="primary" (click)="editarEmpresa(empresa)">
+          <ion-icon name="create-outline"></ion-icon> 
+        </ion-button>
+        <ion-button fill="clear" size="small" color="medium" (click)="eliminarEmpresa(empresa.id!)">
+          <ion-icon name="trash-outline"></ion-icon> 
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <app-navbar></app-navbar>
+</ion-footer>

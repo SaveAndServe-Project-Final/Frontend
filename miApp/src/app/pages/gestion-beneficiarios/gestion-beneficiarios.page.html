@@ -1,0 +1,105 @@
+<ion-header translucent>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-capitalize">Gestión de Beneficiarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" class="ion-padding">
+
+  <form *ngIf="beneficiarioForm" [formGroup]="beneficiarioForm" (ngSubmit)="agregarBeneficiario()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="nombre"></ion-input>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="beneficiarioForm.get('nombre')?.touched && beneficiarioForm.get('nombre')?.invalid">
+            <p>Nombre inválido.</p>
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Teléfono</ion-label>
+            <ion-input formControlName="telefono"></ion-input>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="beneficiarioForm.get('telefono')?.touched && beneficiarioForm.get('telefono')?.invalid">
+            <p>Teléfono inválido.</p>
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Dirección</ion-label>
+            <ion-input formControlName="direccion"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label>Ciudad</ion-label>
+            <ion-select formControlName="ciudad" interface="action-sheet" placeholder="Selecciona una ciudad">
+              <ion-select-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="contrasenia"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12" class="ion-margin-top">
+          <ion-button expand="block" type="submit" [disabled]="beneficiarioForm.invalid">
+            {{ modoEdicion ? 'Editar Beneficiario' : 'Agregar Beneficiario' }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+  <ion-card-header>
+    <ion-card-title>Lista de Beneficiarios</ion-card-title>
+  </ion-card-header>
+  <ion-list>
+    <ion-item *ngFor="let beneficiario of beneficiarios">
+      <ion-label>
+        <h2>{{ beneficiario.nombre }}</h2>
+        <p>{{ beneficiario.telefono }} - {{ beneficiario.email }}</p>
+        <p>{{ beneficiario.direccion }}</p>
+        <ion-badge [color]="esValidada(beneficiario) ? 'success' : 'danger'">
+          {{ esValidada(beneficiario) ? 'Validado' : 'No validado' }}
+        </ion-badge>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button size="small" fill="clear" [color]="esValidada(beneficiario) ? 'danger' : 'success'"
+          (click)="toggleValidacion(beneficiario)">
+          <ion-icon [name]="esValidada(beneficiario) ? 'close-circle' : 'checkmark-circle'"></ion-icon>
+        </ion-button>
+        <ion-button size="small" fill="clear" color="primary" (click)="editarBeneficiario(beneficiario)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button size="small" fill="clear" color="medium" (click)="eliminarBeneficiario(beneficiario.id!)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <app-navbar></app-navbar>
+</ion-footer>

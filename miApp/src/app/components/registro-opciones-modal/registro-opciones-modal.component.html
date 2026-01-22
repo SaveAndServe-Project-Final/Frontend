@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Opciones</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeMenu()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bg-dark centered-container">
+  <div class="content-box">
+
+    <!-- Sección Donante -->
+    <div class="section">
+      <h2 class="section-title">Contrata nuestros servicios</h2>
+      <ion-button expand="block" color="primary" class="btn-lg" (click)="abrirRegistroDonante()">
+        <span>Ser Donante</span>
+        <ion-spinner *ngIf="donanteLoading" name="crescent" class="spinner-border"></ion-spinner>
+      </ion-button>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Sección Beneficiario -->
+    <div class="section">
+      <h2 class="section-title">Recibe nuestras donaciones</h2>
+      <ion-button expand="block" color="primary" class="btn-lg" (click)="abrirRegistroBeneficiario()">
+        <span>Ser Beneficiario</span>
+        <ion-spinner *ngIf="beneficiarioLoading" name="crescent" class="spinner-border"></ion-spinner>
+      </ion-button>
+    </div>
+
+    <!-- Botón volver -->
+    <ion-button fill="clear" class="back-link" (click)="backToLogin()">
+      <ion-icon slot="start" name="arrow-back-outline" style="color: aliceblue;"></ion-icon>
+      <span style="color: aliceblue;">Volver al inicio de sesión</span>
+    </ion-button>
+
+  </div>
+</div>

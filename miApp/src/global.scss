@@ -1,0 +1,276 @@
+/* App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/* Ionic Dark Mode (descomenta según sea necesario) */
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
+/* Añade estas importaciones a tu archivo global.scss */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/autoplay';
+$primary: #ffc107;
+$secondary: #484c52;
+$dark-mode: false;
+
+$colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": #28a745,
+  "danger": #dc3545,
+  "warning": #f0c74d
+);
+
+:root {
+  --ion-color-primary: #ffc107;
+  --ion-color-primary-rgb: 255, 193, 7;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #e0a800;
+  --ion-color-primary-tint: #ffca2c;
+
+  --ion-color-secondary: #484c52;
+  --ion-color-secondary-rgb: 72, 76, 82;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #3e4349;
+  --ion-color-secondary-tint: #5a5f66;
+
+  --ion-color-success: #28a745;
+  --ion-color-danger: #dc3545;
+  --ion-color-warning: #f0c74d;
+}
+
+@if $dark-mode {
+  body {
+    background-color: #222;
+    color: #fff;
+  }
+} @else {
+  body {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.button {
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: $primary;
+  &:hover {
+    background-color: lighten($primary, 10%);
+  }
+}
+
+.btn-secondary {
+  background-color: $secondary;
+  &:hover {
+    background-color: lighten($secondary, 10%);
+  }
+}
+
+@for $i from 1 through 5 {
+  .mt-#{$i} {
+    margin-top: #{$i}rem;
+  }
+  .mb-#{$i} {
+    margin-bottom: #{$i}rem;
+  }
+}
+
+@each $name, $color in $colors {
+  .text-#{$name} {
+    color: $color;
+  }
+  .bg-#{$name} {
+    background-color: $color;
+  }
+}
+
+
+ion-toolbar[color="dark"] {
+  background-color: #000; 
+  color: #ffffff; 
+  
+  ion-icon {
+    color: #fff !important; 
+  }
+}
+ion-tab-button{
+  background-color: #000 !important; 
+  color:white;
+
+}
+.tab-bar-custom {
+  background-color: #000 !important; 
+  color: #000000 !important; 
+}
+
+
+.tab-bar-custom ion-tab-button:hover {
+  --color: #ffc107; 
+}
+.button-native{
+  background-color: #000 !important; 
+
+}
+.hero-section {
+  height: 20vh;
+  background: url('assets/IMG/herosection2.jpg') center/cover no-repeat;
+  background-size: cover; 
+  background-position: center center; 
+}
+
+ion-item-divider {
+  min-height: 1px;
+  background: var(--ion-color-dark);
+  margin: 16px 0;
+}
+.display-1 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+}
+
+.display-4 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.fs-2 {
+  font-size: 1.75rem;
+}
+
+.fs-5 {
+  font-size: 1.1rem;
+}
+
+.text-primary {
+  color: var(--ion-color-primary);
+}
+
+.text-success {
+  color: var(--ion-color-success);
+}
+
+.text-danger {
+  color: var(--ion-color-danger);
+}
+
+.text-dark {
+  color: var(--ion-color-dark);
+}
+
+.text-muted {
+  color: var(--ion-color-medium);
+}
+
+.ion-font-weight-bold {
+  font-weight: bold;
+}
+
+.border-dark {
+  border-color: var(--ion-color-dark);
+  border-top: 1px solid;
+  height: 1px;
+  width: 100%;
+}
+
+ion-card {
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+ion-icon.display-1 {
+  margin-bottom: 1rem;
+}
+// css del acordeon
+.display-4 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.bg-dark-subtle {
+  background-color: #e9ecef;
+}
+
+.accordion-header-dark {
+  --background: #e9ecef;
+  --color: #343a40;
+  font-weight: 600;
+}
+
+.accordion-header-light {
+  --background: #f8f9fa;
+  --color: #212529;
+  font-weight: 600;
+}
+
+ion-icon {
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+ion-accordion-group {
+  margin-top: 1rem;
+}
+
+ion-accordion {
+  margin-bottom: 2px;
+}
+
+ion-item {
+  --border-color: #343a40;
+  --border-width: 0;
+  --border-style: none;
+}
+
+div[slot="content"] {
+  padding: 1rem;
+}
+// css impacto
+
+.ion-border-end {
+  border-right: 3px solid var(--ion-color-warning);
+  height: 100%;
+}
+
+.ion-border-bottom {
+  border-bottom: 3px solid var(--ion-color-warning);
+  width: 100%;
+}

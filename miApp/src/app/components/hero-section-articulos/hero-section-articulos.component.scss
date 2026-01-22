@@ -1,0 +1,48 @@
+.hero-blog {
+  height: 20vh;
+  position: relative;
+  background: url('../../../assets/IMG/HeroBlog.jpg') center/cover no-repeat;
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .hero-title {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.8rem, 6vw, 3rem);
+  }
+
+  .hero-subtitle {
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-blog {
+    height: 30vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero-blog {
+    height: 50vh;
+  }
+}

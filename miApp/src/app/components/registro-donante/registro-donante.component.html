@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>
+      <ion-icon name="person-circle" slot="start"></ion-icon>
+      Registrarse como Empresa
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeRegisterModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="empresaForm" (ngSubmit)="goToPayment()">
+
+    <ion-item>
+      <ion-label position="stacked">Nombre Empresa</ion-label>
+      <ion-input type="text" formControlName="nombre" placeholder="Introduce el nombre de tu empresa"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('nombre')?.touched && empresaForm.get('nombre')?.invalid"
+      color="danger">
+      <div *ngIf="empresaForm.get('nombre')?.errors?.['required']">El nombre es requerido</div>
+      <div *ngIf="empresaForm.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres</div>
+    </ion-note>
+
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-label position="stacked">Tipo de Empresa</ion-label>
+      <ion-select formControlName="tipo" interface="action-sheet" placeholder="Selecciona un tipo de empresa">
+        <ion-select-option *ngFor="let tipo of tiposDeEmpresa" [value]="tipo">
+          {{ tipo }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('tipo')?.touched && empresaForm.get('tipo')?.invalid" color="danger">
+      Debes seleccionar un tipo de empresa
+    </ion-note>
+
+
+    <ion-item>
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input type="tel" formControlName="telefono" placeholder="Introduce el número de teléfono"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('telefono')?.touched && empresaForm.get('telefono')?.invalid"
+      color="danger">
+      <div *ngIf="empresaForm.get('telefono')?.errors?.['required']">El teléfono es requerido</div>
+      <div *ngIf="empresaForm.get('telefono')?.errors?.['pattern']">El teléfono debe tener 9 dígitos</div>
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" formControlName="email" placeholder="name@example.com"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('email')?.touched && empresaForm.get('email')?.invalid"
+      color="danger">
+      <div *ngIf="empresaForm.get('email')?.errors?.['required']">El email es requerido</div>
+      <div *ngIf="empresaForm.get('email')?.errors?.['email']">Introduce un email válido</div>
+    </ion-note>
+
+    <div class="plan-container">
+      <button *ngFor="let plan of ['BASICA','ESTANDAR','PREMIUM']" type="button" class="plan-box"
+        [ngClass]="{ 'plan-active': selectedPlan === plan }" (click)="selectPlan(plan)">
+        {{ plan === 'BASICA' ? 'Plan Básico' : plan === 'ESTANDAR' ? 'Plan Estándar' : 'Plan Premium' }}
+      </button>
+    </div>
+    <ion-text>
+      <p class="ion-text-center">
+        Más información de <a routerLink="/suscripciones" (click)="closeRegisterModal()">nuestros planes</a>
+      </p>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="stacked">CIF</ion-label>
+      <ion-input type="text" formControlName="cif" placeholder="Introduce tu CIF"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('cif')?.touched && empresaForm.get('cif')?.invalid" color="danger">
+      <div *ngIf="empresaForm.get('cif')?.errors?.['required']">El CIF es requerido</div>
+      <div *ngIf="empresaForm.get('cif')?.errors?.['minlength']">El CIF debe tener al menos 9 caracteres</div>
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Dirección</ion-label>
+      <ion-input type="text" formControlName="direccion" placeholder="Dirección empresa"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('direccion')?.touched && empresaForm.get('direccion')?.invalid"
+      color="danger">
+      La dirección es requerida
+    </ion-note>
+
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-label position="stacked">Ciudad</ion-label>
+      <ion-select formControlName="ciudad" interface="action-sheet" placeholder="Selecciona ciudad">
+        <ion-select-option *ngFor="let ciudad of ciudades" [value]="ciudad">
+          {{ ciudad }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('ciudad')?.touched && empresaForm.get('ciudad')?.invalid"
+      color="danger">
+      Debes seleccionar una ciudad
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="stacked">Contraseña</ion-label>
+      <ion-input type="password" formControlName="contrasenia" placeholder="Introduce tu contraseña"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="empresaForm.get('contrasenia')?.touched && empresaForm.get('contrasenia')?.invalid"
+      color="danger">
+      <div *ngIf="empresaForm.get('contrasenia')?.errors?.['required']">La contraseña es requerida</div>
+      <div *ngIf="empresaForm.get('contrasenia')?.errors?.['minlength']">Debe tener al menos 6 caracteres</div>
+    </ion-note>
+
+    <ion-item lines="none">
+      <ion-checkbox slot="start" formControlName="terms" required></ion-checkbox>
+      <ion-label>
+        Yo acepto los <a href="#" (click)="openTerms($event)">términos y condiciones</a>
+      </ion-label>
+    </ion-item>
+
+    <ion-button type="submit" expand="full" color="warning" [disabled]="empresaForm.invalid">
+      Registrarse
+    </ion-button>
+
+    <ion-button fill="clear" class="back-link" (click)="backToLogin()">
+      <ion-icon slot="start" name="arrow-back-outline" style="color: aliceblue;"></ion-icon>
+      <span style="color: aliceblue;">Volver al inicio de sesión</span>
+    </ion-button>
+  </form>
+</ion-content>

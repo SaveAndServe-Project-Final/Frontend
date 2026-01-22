@@ -1,0 +1,89 @@
+<!-- donacion.page.html -->
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>Mis Donaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+  <ng-container *ngIf="loadingDonaciones; else donacionesContent">
+    <ion-spinner name="crescent" class="ion-text-center"></ion-spinner>
+  </ng-container>
+
+  <ng-template #donacionesContent>
+    <ng-container *ngIf="errorDonaciones; else listaDonaciones">
+      <ion-alert
+        header="Error"
+        [message]="errorDonaciones"
+        [buttons]="['OK']"
+        [isOpen]="true">
+      </ion-alert>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #listaDonaciones>
+    <ng-container *ngIf="donaciones.length > 0; else noDonaciones">
+      <ion-list>
+        <ion-item *ngFor="let donacion of donaciones">
+          <ion-label>
+            <h2>Fecha: {{ donacion.fechaEntrega | date:'dd/MM/yyyy' }}</h2>
+            <p><strong>Banco:</strong> {{ donacion.bancoDeAlimentos.nombre }}</p>
+            <p><strong>Transporte:</strong> {{ donacion.transporte.nombreTransporte }}</p>
+            <p><strong>Total:</strong> {{ donacion.totalDonacion | number:'1.2-2' }} €</p>
+            <p>
+              <ion-badge [color]="getBadgeColor(donacion.estadoEnvio)">
+                {{ donacion.estadoEnvio }}
+              </ion-badge>
+            </p>
+          </ion-label>
+          <ion-button fill="outline" slot="end" (click)="verDetalleDonacion(donacion)">
+            Ver Detalle
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+
+    <ng-template #noDonaciones>
+      <ion-text color="medium">
+        <p class="ion-text-center">No se han realizado donaciones aún.</p>
+      </ion-text>
+    </ng-template>
+  </ng-template>
+
+  <!-- Modal Detalle Donación -->
+  <ion-modal [isOpen]="selectedDonacion !== null" (didDismiss)="cerrarDetalleDonacion()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="dark">
+          <ion-title>Detalles de Donación</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="warning" (click)="cerrarDetalleDonacion()">X</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <h6><strong>Fecha:</strong> {{ selectedDonacion?.fechaEntrega | date:'dd/MM/yyyy' }}</h6>
+        <h6><strong>Banco de Alimentos:</strong> {{ selectedDonacion?.bancoDeAlimentos.nombre }}</h6>
+        <h6><strong>Transporte:</strong> {{ selectedDonacion?.transporte.nombreTransporte }}</h6>
+        <h6><strong>Total Donación:</strong> {{ selectedDonacion?.totalDonacion | number:'1.2-2' }} €</h6>
+
+        <ion-list>
+          <ion-item-divider style="color: aliceblue;">Productos Donados</ion-item-divider>
+          <ion-item *ngFor="let linea of selectedDonacion?.lineasProducto || []">
+            <ion-label>
+              <h2>{{ linea.producto?.nombre || 'Producto desconocido' }}</h2>
+              <p>Cantidad: {{ linea.cantidad }}</p>
+              <p>Precio Unitario: {{ linea.precioUnitario | number:'1.2-2' }} €</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <ng-container *ngIf="selectedDonacion?.lineasProducto?.length === 0">
+          <ion-text color="medium">
+            No hay productos donados en esta donación.
+          </ion-text>
+        </ng-container>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
